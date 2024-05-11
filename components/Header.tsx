@@ -1,44 +1,59 @@
-import NextLogo from "./NextLogo";
-import SupabaseLogo from "./SupabaseLogo";
+"use client"
+
+import { Input, IconButton, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter, Button, useDisclosure, VStack } from "@chakra-ui/react";
+import React, { ReactNode, useRef } from "react";
+import { AddIcon, HamburgerIcon } from "@chakra-ui/icons";
+import Link from "next/link";
+import { signOut } from "./signOut";
+import { SubmitButton } from "@/app/login/submit-button";
 
 export default function Header() {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = useRef(null)
+
   return (
-    <div className="flex flex-col gap-16 items-center">
-      <div className="flex gap-8 justify-center items-center">
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SupabaseLogo />
-        </a>
-        <span className="border-l rotate-45 h-6" />
-        <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
-          <NextLogo />
-        </a>
+    <>
+      <div className="flex h-12 bg-white sticky top-0 z-50 w-full border-slate-300 border-b">
+        <IconButton
+          onClick={onOpen}
+          className="mt-auto mb-auto ml-2"
+          variant="ghost"
+          icon={<HamburgerIcon />}
+          aria-label="Open menu" />
+        <a href="/" className="mt-auto mb-auto ml-2 decoration-0">Mita-memo</a>
+
+        <div className="ml-auto mt-auto mb-auto mr-2">
+          <IconButton as={Link}
+            href="/add-record"
+            aria-label={""}
+            icon={<AddIcon />}
+            variant="ghost"></IconButton>
+        </div>
       </div>
-      <h1 className="sr-only">Supabase and Next.js Starter Template</h1>
-      <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center">
-        The fastest way to build apps with{" "}
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Supabase
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://nextjs.org/"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Next.js
-        </a>
-      </p>
-      <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
-    </div>
+
+      <Drawer
+        isOpen={isOpen}
+        placement='left'
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Mita-memo</DrawerHeader>
+
+          <DrawerBody className="flex flex-col">
+            <Button justifyContent="start" variant="ghost" as="a" href="requests">リクエスト一覧</Button>
+            <Button justifyContent="start" variant="ghost" as="a" href="request">リクエストする</Button>
+          </DrawerBody>
+
+          <DrawerFooter alignItems="stretch" flexDirection="column" justifyContent="stretch">
+            <form action={signOut} className="flex flex-col">
+                <SubmitButton pendingText="ログアウト中" justifyContent="start" variant="ghost" type="submit">ログアウト</SubmitButton>
+              </form>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    </>
   );
 }

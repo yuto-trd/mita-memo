@@ -1,0 +1,111 @@
+"use client"
+
+import { updateEpisodeNumber } from "@/app/postAction";
+import { Tables } from "@/types/supabase";
+import * as Chakra from "@chakra-ui/react";
+import { redirect, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { SubmitChakraButton } from "./submit-button";
+
+export function RecordCard({ record, result }: { record: Tables<"records"> & { animes: Tables<"animes"> }, result: string | undefined }) {
+    const [sliderValue, setSliderValue] = useState(record.episode_number);
+    const [showTooltip, setShowTooltip] = useState(false);
+    const [editting, setEditing] = useState(false);
+    const router = useRouter();
+
+    useEffect(() => {
+        if (result === "handled") {
+            setEditing(false);
+            router.push("/");
+        }
+    }, [result]);
+
+    return (
+        <Chakra.Card
+            direction={{ base: 'row' }}
+            size="sm"
+            overflow='hidden'
+            variant="outline"
+        >
+            <Chakra.Image
+                objectFit='cover'
+                maxW={{ base: '100%', sm: '200px' }}
+                src='https://via.placeholder.com/150'
+            />
+
+            <Chakra.Stack style={{ flex: 1 }}>
+                <Chakra.CardBody>
+                    <Chakra.Heading size='md'>{record.animes.name}</Chakra.Heading>
+
+                    <Chakra.Text py='2'>
+                        {record.animes.description}
+                    </Chakra.Text>
+                </Chakra.CardBody>
+
+                {editting && <form action={updateEpisodeNumber}>
+                    <input name="id" value={record.id} type="hidden" />
+                    <Chakra.Box
+                        marginLeft="var(--card-padding)"
+                        marginRight="var(--card-padding)">
+                        <Chakra.Slider
+                            name='episode_number'
+                            min={0}
+                            max={record.animes.episodes}
+                            defaultValue={sliderValue ?? 0}
+                            onChange={(v) => setSliderValue(v)}
+                            onMouseEnter={() => setShowTooltip(true)}
+                            onMouseLeave={() => setShowTooltip(false)}
+                        >
+                            <Chakra.SliderTrack>
+                                <Chakra.SliderFilledTrack />
+                            </Chakra.SliderTrack>
+                            <Chakra.Tooltip
+                                hasArrow
+                                color='white'
+                                placement='top'
+                                isOpen={showTooltip}
+                                label={`${sliderValue}`}
+                            >
+                                <Chakra.SliderThumb />
+                            </Chakra.Tooltip>
+                        </Chakra.Slider>
+                    </Chakra.Box>
+
+                    <SubmitChakraButton
+                        pendingText="処理中..."
+                        variant="solid"
+                        colorScheme="blue"
+                        margin="var(--card-padding)"
+                        type="submit">
+                        確定
+                    </SubmitChakraButton>
+                    <SubmitChakraButton
+                        type="button"
+                        marginTop="var(--card-padding)"
+                        marginBottom="var(--card-padding)"
+                        marginRight="var(--card-padding)"
+                        onClick={() => {
+                            setEditing(!editting);
+                            setSliderValue(record.episode_number);
+                        }}>
+                        キャンセル
+                    </SubmitChakraButton>
+                </form>}
+
+                {!editting && <>
+                    <Chakra.Progress
+                        size='sm'
+                        marginLeft="var(--card-padding)"
+                        marginRight="var(--card-padding)"
+                        value={record.episode_number ?? 0}
+                        max={record.animes.episodes} />
+                    <Chakra.CardFooter>
+                        <Chakra.Button variant='solid' onClick={() => setEditing(!editting)}>
+                            進捗を更新
+                        </Chakra.Button>
+                    </Chakra.CardFooter>
+                </>}
+            </Chakra.Stack>
+        </Chakra.Card>
+    )
+}
