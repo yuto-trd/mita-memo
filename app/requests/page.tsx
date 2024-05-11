@@ -1,6 +1,6 @@
 import { Tables } from "@/types/supabase";
 import { createClient } from "@/utils/supabase/server";
-import { Text, Card, CardBody, Heading, Stack, Badge, CardFooter, Button } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { redirect } from "next/navigation";
 import { RequestCard } from "./card";
 

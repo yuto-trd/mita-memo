@@ -51,6 +51,7 @@ export type Database = {
           episode_number: number | null
           id: number
           note: string | null
+          updated_at: string
           user_id: string | null
         }
         Insert: {
@@ -59,6 +60,7 @@ export type Database = {
           episode_number?: number | null
           id?: number
           note?: string | null
+          updated_at?: string
           user_id?: string | null
         }
         Update: {
@@ -67,6 +69,7 @@ export type Database = {
           episode_number?: number | null
           id?: number
           note?: string | null
+          updated_at?: string
           user_id?: string | null
         }
         Relationships: [
