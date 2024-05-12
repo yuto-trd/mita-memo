@@ -27,9 +27,9 @@ export function RecordCard({ record, result }: { record: Tables<"records"> & { a
             overflow='hidden'
             variant="outline"
         >
-            {record.animes.cover_img ? <div className="max-h-0">
+            {record.animes.cover_img ? <div className="w-28 md:w-40 h-auto bg-gray-100">
                 <img
-                    className="w-28 md:w-40"
+                    className="aspect-square h-full object-cover"
                     src={`https://bxwxjmhrwdilohrmccph.supabase.co/storage/v1/object/public/cover_img/${record.animes.cover_img}`} />
             </div> : <div className="w-28 md:w-40 h-auto bg-gray-100" />}
 
@@ -75,7 +75,10 @@ export function RecordCard({ record, result }: { record: Tables<"records"> & { a
                             </Chakra.Tooltip>
                         </Chakra.Slider>
 
-                        <Chakra.Text>0にするとリストから削除</Chakra.Text>
+                        <div className="flex justify-between">
+                            <Chakra.Text>{sliderValue} / {record.animes.episodes}</Chakra.Text>
+                            <Chakra.Text>0にするとリストから削除</Chakra.Text>
+                        </div>
                     </Chakra.VStack>
 
 

@@ -26,7 +26,7 @@ export default async function RootLayout({
   } = await supabase.auth.getUser();
 
   return (
-    <html lang="en" className={GeistSans.className}>
+    <html lang="ja" className={GeistSans.className}>
       <body className="bg-background text-foreground">
         <Providers>
           <Header auth={user !== null} />

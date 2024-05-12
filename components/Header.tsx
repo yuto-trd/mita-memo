@@ -53,7 +53,7 @@ export default function Header({ auth }: { auth: boolean }) {
           <DrawerCloseButton />
           <DrawerHeader>Mita-memo</DrawerHeader>
 
-          <DrawerBody className="flex flex-col">
+          <DrawerBody className="flex flex-col justify-start">
             <Button justifyContent="start" variant="ghost" as="a" href="/requests">リクエスト一覧</Button>
             <Button justifyContent="start" variant="ghost" as="a" href="/request">リクエストする</Button>
           </DrawerBody>

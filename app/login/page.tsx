@@ -53,7 +53,7 @@ export default function Login({
   };
 
   return (
-    <div style={{ minHeight: "calc(100vh - 3rem);" }} className="flex flex-col items-center">
+    <div style={{ minHeight: "calc(100vh - 3rem)" }} className="flex flex-col items-center">
       <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
         <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
           <FormControl>

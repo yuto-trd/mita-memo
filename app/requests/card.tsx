@@ -24,14 +24,15 @@ export function RequestCard({ item }: { item: Tables<'requests'> & { response4re
                     </Text>
                 </CardBody>
 
-                <CardFooter>
-                    <form className="ml-auto" action={cancelRequest}>
-                        <input type="hidden" value={item.id} name="id" />
-                        <Button variant='ghost' type="submit">
-                            キャンセル
-                        </Button>
-                    </form>
-                </CardFooter>
+                {!(item.response4request[0]?.reject === false) &&
+                    <CardFooter>
+                        <form className="ml-auto" action={cancelRequest}>
+                            <input type="hidden" value={item.id} name="id" />
+                            <Button variant='ghost' type="submit">
+                                キャンセル
+                            </Button>
+                        </form>
+                    </CardFooter>}
             </Stack>
         </Card>
     );

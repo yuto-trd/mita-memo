@@ -17,10 +17,10 @@ export function AddRecordForm({ watchedItems }: { watchedItems: Tables<"animes">
                     action={dispatch}
                     className="sm:p-4 sm:rounded-xl sm:border sm:border-slate-300">
                     <Heading className="mb-2" size="lg">記録を追加</Heading>
-                    <FormControl isInvalid={result?.errors?.name}>
+                    <FormControl isInvalid={result?.errors?.anime_id}>
                         <FormLabel>記録する作品</FormLabel>
                         <UnwatchedAnimesList watchedItems={watchedItems} />
-                        {result?.errors?.name && <FormErrorMessage>{result.errors.name}</FormErrorMessage>}
+                        {result?.errors?.anime_id && <FormErrorMessage>{result.errors.anime_id}</FormErrorMessage>}
                     </FormControl>
                     <div className="flex mt-2 justify-between">
                         <SubmitButton pendingText="処理中...">追加</SubmitButton>

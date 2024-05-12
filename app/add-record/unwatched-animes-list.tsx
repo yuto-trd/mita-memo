@@ -69,6 +69,12 @@ export function UnwatchedAnimesList({ watchedItems }: { watchedItems: Tables<"an
                     placeholder="検索"
                     size="md"
                     value={term}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            e.preventDefault();
+                            handleClick();
+                        }
+                    }}
                     onChange={e => setTerm(e.target.value)} />
                 <InputRightElement width='4.5rem'>
                     <Button h='1.75rem' size='sm' onClick={handleClick}>
