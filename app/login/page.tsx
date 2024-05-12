@@ -23,7 +23,7 @@ export default function Login({
     });
 
     if (error) {
-      return redirect("/login?message=Could not authenticate user");
+      return redirect("/login?message=ユーザーを認証できません");
     }
 
     return redirect("/");
@@ -46,10 +46,10 @@ export default function Login({
     });
 
     if (error) {
-      return redirect("/login?message=Could not authenticate user");
+      return redirect("/login?message=ユーザーを認証できません");
     }
 
-    return redirect("/login?message=Check email to continue sign in process");
+    return redirect("/login?message=サインインを完了するにはメールを確認してください");
   };
 
   return (
@@ -60,6 +60,8 @@ export default function Login({
             <FormLabel htmlFor="email">メールアドレス</FormLabel>
 
             <Input
+              type="email"
+              autoComplete="email"
               name="email"
               placeholder="you@example.com"
               required />
@@ -69,6 +71,7 @@ export default function Login({
 
             <Input
               type="password"
+              autoComplete="password"
               name="password"
               placeholder="••••••••"
               required />

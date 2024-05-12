@@ -11,38 +11,33 @@ export type Database = {
     Tables: {
       animes: {
         Row: {
-          cover_img_id: string | null
+          cover_img: string | null
           created_at: string
           description: string | null
           episodes: number
           id: string
           name: string
+          url: string | null
         }
         Insert: {
-          cover_img_id?: string | null
+          cover_img?: string | null
           created_at?: string
           description?: string | null
           episodes: number
           id?: string
           name: string
+          url?: string | null
         }
         Update: {
-          cover_img_id?: string | null
+          cover_img?: string | null
           created_at?: string
           description?: string | null
           episodes?: number
           id?: string
           name?: string
+          url?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "animes_cover_img_id_fkey"
-            columns: ["cover_img_id"]
-            isOneToOne: false
-            referencedRelation: "objects"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       records: {
         Row: {
@@ -171,23 +166,25 @@ export type Database = {
       get_unwatched_animes: {
         Args: Record<PropertyKey, never>
         Returns: {
-          cover_img_id: string | null
+          cover_img: string | null
           created_at: string
           description: string | null
           episodes: number
           id: string
           name: string
+          url: string | null
         }[]
       }
       get_watched_animes: {
         Args: Record<PropertyKey, never>
         Returns: {
-          cover_img_id: string | null
+          cover_img: string | null
           created_at: string
           description: string | null
           episodes: number
           id: string
           name: string
+          url: string | null
         }[]
       }
     }

@@ -3,7 +3,6 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { createClient } from "@/utils/supabase/server";
 import Header from "@/components/Header";
-import AuthButton from "@/components/AuthButton";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -11,15 +10,15 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: "Mita-memo",
+  description: "見た作品を記録しよう",
 };
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-  }) {
+}) {
   const supabase = createClient();
 
   const {
@@ -29,12 +28,10 @@ export default async function RootLayout({
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground">
-        {/* <main className="min-h-screen flex flex-col items-center"> */}
         <Providers>
-          <Header />
+          <Header auth={user !== null} />
           {children}
         </Providers>
-        {/* </main> */}
       </body>
     </html>
   );

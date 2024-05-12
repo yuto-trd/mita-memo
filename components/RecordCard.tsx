@@ -27,15 +27,19 @@ export function RecordCard({ record, result }: { record: Tables<"records"> & { a
             overflow='hidden'
             variant="outline"
         >
-            <Chakra.Image
-                objectFit='cover'
-                maxW={{ base: '100%', sm: '200px' }}
-                src='https://via.placeholder.com/150'
-            />
+            {record.animes.cover_img ? <div className="max-h-0">
+                <img
+                    className="w-28 md:w-40"
+                    src={`https://bxwxjmhrwdilohrmccph.supabase.co/storage/v1/object/public/cover_img/${record.animes.cover_img}`} />
+            </div> : <div className="w-28 md:w-40 h-auto bg-gray-100" />}
 
             <Chakra.Stack style={{ flex: 1 }}>
                 <Chakra.CardBody>
-                    <Chakra.Heading size='md'>{record.animes.name}</Chakra.Heading>
+                    {record.animes.url ?
+                        <Chakra.Heading size='md' as="a" href={record.animes.url}>
+                            {record.animes.name}
+                        </Chakra.Heading> :
+                        <Chakra.Heading size='md'>{record.animes.name}</Chakra.Heading>}
 
                     <Chakra.Text py='2'>
                         {record.animes.description}
@@ -44,7 +48,8 @@ export function RecordCard({ record, result }: { record: Tables<"records"> & { a
 
                 {editting && <form action={updateEpisodeNumber}>
                     <input name="id" value={record.id} type="hidden" />
-                    <Chakra.Box
+                    <Chakra.VStack
+                        alignItems="stretch"
                         marginLeft="var(--card-padding)"
                         marginRight="var(--card-padding)">
                         <Chakra.Slider
@@ -69,7 +74,10 @@ export function RecordCard({ record, result }: { record: Tables<"records"> & { a
                                 <Chakra.SliderThumb />
                             </Chakra.Tooltip>
                         </Chakra.Slider>
-                    </Chakra.Box>
+
+                        <Chakra.Text>0にするとリストから削除</Chakra.Text>
+                    </Chakra.VStack>
+
 
                     <SubmitChakraButton
                         pendingText="処理中..."
