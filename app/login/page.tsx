@@ -23,7 +23,7 @@ export default function Login({
     });
 
     if (error) {
-      return redirect("/login?message=ユーザーを認証できません");
+      return redirect(`/login?message=${encodeURIComponent("ユーザーを認証できません")}`);
     }
 
     return redirect("/");
@@ -46,10 +46,10 @@ export default function Login({
     });
 
     if (error) {
-      return redirect("/login?message=ユーザーを認証できません");
+      return redirect(`/login?message=${encodeURIComponent("ユーザーを認証できません")}`);
     }
 
-    return redirect("/login?message=サインインを完了するにはメールを確認してください");
+    return redirect(`/login?message=${encodeURIComponent("サインインを完了するにはメールを確認してください")}`);
   };
 
   return (
