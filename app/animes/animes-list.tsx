@@ -20,7 +20,7 @@ export function AnimesList({ query, result }: { query?: string, result: Tables<"
                             {item.cover_img ? <div className="w-28 h-auto bg-gray-100">
                                 <img
                                     className="aspect-square h-full object-cover"
-                                    src={`https://bxwxjmhrwdilohrmccph.supabase.co/storage/v1/object/public/cover_img/${record.animes.cover_img}`} />
+                                    src={`https://bxwxjmhrwdilohrmccph.supabase.co/storage/v1/object/public/cover_img/${item.cover_img}`} />
                             </div> : <div className="w-28 h-auto bg-gray-100" />}
 
                             <Chakra.Stack style={{ flex: 1 }}>
