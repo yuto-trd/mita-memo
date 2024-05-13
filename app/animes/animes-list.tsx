@@ -25,11 +25,13 @@ export function AnimesList({ query, result }: { query?: string, result: Tables<"
 
                             <Chakra.Stack style={{ flex: 1 }}>
                                 <Chakra.CardBody>
-                                    {item.url ?
+                                    {/* {item.url ?
                                         <Chakra.Heading size='md' as="a" href={item.url}>
                                             {item.name}
                                         </Chakra.Heading> :
-                                        <Chakra.Heading size='md'>{item.name}</Chakra.Heading>}
+                                        <Chakra.Heading size='md'>{item.name}</Chakra.Heading>
+                                    } */}
+                                    <Chakra.Heading as="a" href={`/animes/${item.id}`} size='md'>{item.name}</Chakra.Heading>
 
                                     <Chakra.Text py='2'>
                                         {item.description}
