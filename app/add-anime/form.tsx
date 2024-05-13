@@ -4,8 +4,6 @@ import { useFormState } from "react-dom";
 import { AddAnime } from "./postAction";
 import { FormControl, FormErrorMessage, FormLabel, Heading, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Textarea } from "@chakra-ui/react";
 import { SubmitButton } from "../add-record/submit-button";
-import { Tables } from "@/types/supabase";
-import FileUploader, { fileType } from "@/components/FileUploader";
 
 export function AddAnimeForm() {
     const [result, dispatch] = useFormState(AddAnime, {});
