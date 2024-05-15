@@ -35,13 +35,11 @@ export function RecordCard({ record, result }: { record: Tables<"records"> & { a
 
             <Chakra.Stack style={{ flex: 1 }}>
                 <Chakra.CardBody>
-                    {record.animes.url ?
-                        <Chakra.Heading size='md' as="a" href={record.animes.url}>
-                            {record.animes.name}
-                        </Chakra.Heading> :
-                        <Chakra.Heading size='md'>{record.animes.name}</Chakra.Heading>}
+                    <Chakra.Heading size='md' as="a" href={`/animes/${record.anime_id}`}>
+                        {record.animes.name}
+                    </Chakra.Heading>
 
-                    <Chakra.Text py='2'>
+                    <Chakra.Text className="mt-2 max-h-12 overflow-hidden line-clamp-2">
                         {record.animes.description}
                     </Chakra.Text>
                 </Chakra.CardBody>

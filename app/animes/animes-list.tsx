@@ -23,7 +23,7 @@ export function AnimesList({ query, result }: { query?: string, result: Tables<"
                                     src={`https://bxwxjmhrwdilohrmccph.supabase.co/storage/v1/object/public/cover_img/${item.cover_img}`} />
                             </div> : <div className="w-28 h-auto bg-gray-100" />}
 
-                            <Chakra.Stack style={{ flex: 1 }}>
+                            <Chakra.Stack style={{ flex: 1 }} gap={0}>
                                 <Chakra.CardBody>
                                     {/* {item.url ?
                                         <Chakra.Heading size='md' as="a" href={item.url}>
@@ -33,12 +33,12 @@ export function AnimesList({ query, result }: { query?: string, result: Tables<"
                                     } */}
                                     <Chakra.Heading as="a" href={`/animes/${item.id}`} size='md'>{item.name}</Chakra.Heading>
 
-                                    <Chakra.Text py='2'>
+                                    <Chakra.Text className="mt-2 max-h-20 overflow-hidden line-clamp-3">
                                         {item.description}
                                     </Chakra.Text>
                                 </Chakra.CardBody>
 
-                                <Chakra.CardFooter>
+                                <Chakra.CardFooter paddingTop={0}>
                                     <Chakra.Text>エピソード数: {item.episodes}</Chakra.Text>
                                 </Chakra.CardFooter>
                             </Chakra.Stack>

@@ -10,7 +10,7 @@ import { Tables } from "@/types/supabase";
 export function SearchAnimeForm({ query, result }: { query?: string, result: Tables<"animes">[] }) {
     return (
         <div className="mt-3 flex flex-col items-center">
-            <div className="flex-1 flex flex-col w-full px-4 sm:max-w-lg justify-center gap-2">
+            <div className="flex-1 flex flex-col w-full px-4 sm:max-w-2xl justify-center gap-2">
                 <form
                     method="get"
                     className="sm:p-4 sm:rounded-xl sm:border sm:border-slate-300">

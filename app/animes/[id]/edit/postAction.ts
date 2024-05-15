@@ -2,6 +2,7 @@
 
 import { Tables } from "@/types/supabase";
 import { createClient } from "@/utils/supabase/server";
+import imageCompression from "browser-image-compression";
 import { randomUUID } from "crypto";
 import { redirect } from "next/navigation";
 
@@ -11,7 +12,8 @@ export async function EditAnime(state: any, formData: FormData): Promise<any> {
     const episodes = parseInt(formData.get("episodes") as string);
     const description = formData.get("description") as string;
     const url = formData.get("url") as string;
-    const cover_img = formData.get("cover_img") as File;
+    const cover_img_data = formData.get("cover_img") as string;
+    const cover_img = cover_img_data ? await imageCompression.getFilefromDataUrl(cover_img_data, "unknown") : null;
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (user === null) {
@@ -44,7 +46,7 @@ export async function EditAnime(state: any, formData: FormData): Promise<any> {
         errors = { ...errors, description: "1000文字以内にしてください" };
     }
     if (cover_img && cover_img.size > 100 * 1024) {
-        errors = { ...errors, description: "ファイルサイズは100KB以内にしてください" };
+        errors = { ...errors, cover_img: "ファイルサイズは100KB以内にしてください" };
     }
 
     if (errors) {
@@ -86,5 +88,5 @@ export async function EditAnime(state: any, formData: FormData): Promise<any> {
         return { error: "不明なエラーが発生しました" };
     }
 
-    redirect(`/animes`);
+    redirect(`/animes/${id}`);
 };
