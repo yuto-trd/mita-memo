@@ -2,22 +2,25 @@
 
 import { Tables } from "@/types/supabase";
 import { createClient } from "@/utils/supabase/server";
+import imageCompression from "browser-image-compression";
 import { randomUUID } from "crypto";
 import { redirect } from "next/navigation";
 
 export async function AddAnime(state: any, formData: FormData): Promise<any> {
+    const id = formData.get("id") as string;
     const name = formData.get("name") as string;
     const episodes = parseInt(formData.get("episodes") as string);
     const description = formData.get("description") as string;
     const url = formData.get("url") as string;
-    const cover_img = formData.get("cover_img") as File;
+    const cover_img_data = formData.get("cover_img") as string;
+    const cover_img = cover_img_data ? await imageCompression.getFilefromDataUrl(cover_img_data, "unknown") : null;
     const supabase = createClient();
     const { data } = await supabase.auth.getUser();
     if (data.user === null) {
         redirect("/login");
     }
 
-    const isModerator = await supabase.rpc("is_in_role", "moderator").returns<number>()
+    const isModerator = (await supabase.rpc("is_in_role", { role: "moderator" }).returns<number>()).data
 
     if (!isModerator) {
         return redirect("/login");
@@ -34,7 +37,7 @@ export async function AddAnime(state: any, formData: FormData): Promise<any> {
         errors = { ...errors, description: "1000文字以内にしてください" };
     }
     if (cover_img && cover_img.size > 100 * 1024) {
-        errors = { ...errors, description: "ファイルサイズは100KB以内にしてください" };
+        errors = { ...errors, cover_img: "ファイルサイズは100KB以内にしてください" };
     }
 
     if (errors) {

@@ -14,7 +14,7 @@ export default async function Page({ params: { id } }: { params: { id: string } 
         return redirect("/login");
     }
 
-    const isModerator = await supabase.rpc("is_in_role", "moderator").returns<number>()
+    const isModerator = (await supabase.rpc("is_in_role", { role: "moderator" }).returns<number>()).data
 
     if (!isModerator) {
         return redirect("/login");

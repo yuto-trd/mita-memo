@@ -29,7 +29,7 @@ export async function EditAnime(state: any, formData: FormData): Promise<any> {
         return { error: "この作品は削除されています" };
     }
 
-    const isModerator = await supabase.rpc("is_in_role", "moderator").returns<number>()
+    const isModerator = (await supabase.rpc("is_in_role", { role: "moderator" }).returns<number>()).data
 
     if (!isModerator) {
         return redirect("/login");

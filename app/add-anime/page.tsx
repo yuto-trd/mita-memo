@@ -13,7 +13,7 @@ export default async function RequestPage() {
         return redirect("/login");
     }
 
-    const isModerator = await supabase.rpc("is_in_role", "moderator").returns<number>()
+    const isModerator = (await supabase.rpc("is_in_role", { role: "moderator" }).returns<number>()).data
 
     if (!isModerator) {
         return redirect("/login");

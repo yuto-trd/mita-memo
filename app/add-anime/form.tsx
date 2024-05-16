@@ -4,9 +4,41 @@ import { useFormState } from "react-dom";
 import { AddAnime } from "./postAction";
 import { FormControl, FormErrorMessage, FormLabel, Heading, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Textarea } from "@chakra-ui/react";
 import { SubmitButton } from "../add-record/submit-button";
+import { ChangeEvent, useRef } from "react";
+import imageCompression from "browser-image-compression";
 
 export function AddAnimeForm() {
     const [result, dispatch] = useFormState(AddAnime, {});
+    const coverImgInputRef = useRef<HTMLInputElement | null>(null);
+
+    async function handleImageUpload(event: ChangeEvent<HTMLInputElement>) {
+        const imageFile = event.target.files?.[0];
+        if (!imageFile || !coverImgInputRef.current) {
+            event.target.files = null;
+            return;
+        }
+        if (process.env.NODE_ENV === "development") {
+            console.log('originalFile instanceof Blob', imageFile instanceof Blob);
+            console.log(`originalFile size ${imageFile.size / 1024} KB`);
+        }
+
+        const options = {
+            maxSizeMB: 0.097,
+        }
+        try {
+            const compressedFile = await imageCompression(imageFile, options);
+            if (process.env.NODE_ENV === "development") {
+                console.log('compressedFile instanceof Blob', compressedFile instanceof Blob);
+                console.log(`compressedFile size ${compressedFile.size / 1024} KB`);
+            }
+
+            const data = await imageCompression.getDataUrlFromFile(compressedFile);
+            coverImgInputRef.current.value = data;
+        } catch (error) {
+            console.log(error);
+            event.target.files = null;
+        }
+    }
 
     return (
         <div className="mt-3 flex flex-col items-center">
@@ -43,9 +75,10 @@ export function AddAnimeForm() {
                     </FormControl>
                     <FormControl isInvalid={result?.errors?.cover_img}>
                         <FormLabel>カバー画像 (任意)</FormLabel>
-                        <Input name="cover_img" type="file" accept="image/*" className="mb-2" />
-                        {result?.errors?.url && <FormErrorMessage>{result.errors.cover_img}</FormErrorMessage>}
+                        <Input type="file" accept="image/*" className="mb-2" onChange={handleImageUpload} />
+                        {result?.errors?.cover_img && <FormErrorMessage>{result.errors.cover_img}</FormErrorMessage>}
                     </FormControl>
+                    <input type="hidden" ref={coverImgInputRef} name="cover_img" />
                     {result?.error && <FormErrorMessage>{result.error}</FormErrorMessage>}
                     <SubmitButton className="mt-3" pendingText="処理中...">送信</SubmitButton>
                 </form>
