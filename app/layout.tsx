@@ -14,6 +14,8 @@ export const metadata: Metadata = {
   title: "Mita-memo",
   description: "見た作品を記録しよう",
   openGraph: {
+    title: "Mita-memo",
+    description: "見た作品を記録しよう",
     images: [
       {
         url: `${defaultUrl}/ogp_large.webp`
@@ -21,6 +23,8 @@ export const metadata: Metadata = {
     ]
   },
   twitter: {
+    title: "Mita-memo",
+    description: "見た作品を記録しよう",
     card: "summary",
     images: [{
       "url": `${defaultUrl}/ogp.webp`
