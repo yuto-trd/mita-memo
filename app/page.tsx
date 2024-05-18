@@ -1,50 +1,44 @@
+import { FaArrowRightToBracket } from "react-icons/fa6";
+import { Button, Heading, Text } from "@chakra-ui/react";
+import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
-import { Tables } from "@/types/supabase";
-import { RecordCard } from "@/components/RecordCard";
-import { redirect } from "next/navigation";
-import { Text } from "@chakra-ui/react";
 
-function getRemain(item: Tables<'records'> & { animes: Tables<"animes"> }) {
-  return item.animes.episodes - (item.episode_number ?? 0);
-}
+export default async function HomePage() {
+    const supabase = createClient();
 
-export default async function Index({ searchParams }: { searchParams: { result: string | undefined, rid: number | undefined } }) {
-  const supabase = createClient();
-  const { data: records } = await supabase.from("records")
-    .select(`*, animes(*)`)
-    .order("updated_at", { ascending: false })
-    .returns<(Tables<'records'> & { animes: Tables<"animes"> })[]>();
+    const {
+        data: { user },
+    } = await supabase.auth.getUser();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    return (
+        <div>
+            <div className="relative" style={{ height: "500px" }}>
+                <img src="/grainy-gradient.svg" className="w-full object-cover absolute mix-blend-color-burn" style={{ height: "500px" }} />
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <Heading as='h1' color="#082432" size='3xl'>Mita-memo</Heading>
+                    <Text className="mt-3 text-center" fontSize='2xl'>見た作品を記録しよう</Text>
 
-  if (!user) {
-    return redirect("/login");
-  }
+                    <div className="flex flex-row gap-4">
+                        <Button
+                            as={Link}
+                            href={user === null ? "/login" : "/list"}
+                            className="mt-8"
+                            size="lg"
+                            rightIcon={<FaArrowRightToBracket />}
+                            colorScheme="blue">
+                            サインイン
+                        </Button>
 
-  const pending = records?.filter(x => getRemain(x) > 0);
-  const completed = records?.filter(x => getRemain(x) <= 0);
-
-  return (
-    <div className="ml-auto mr-auto mt-2 p-3 max-w-4xl">
-      <h2 className="font-bold text-lg">最近見たリスト</h2>
-      <div className="mt-2 gap-2 flex flex-col">
-        {pending?.map((item) => <RecordCard
-          result={item.id == searchParams.rid ? searchParams.result : undefined}
-          record={item}
-          key={item.id} />)}
-        {!pending?.length && <Text>ここには何もないようです</Text>}
-      </div>
-
-      <h2 className="font-bold text-lg mt-3">完了</h2>
-      <div className="mt-2 gap-2 flex flex-col">
-        {completed?.map((item) => <RecordCard
-          result={item.id == searchParams.rid ? searchParams.result : undefined}
-          record={item}
-          key={item.id} />)}
-        {!completed?.length && <Text>ここには何もないようです</Text>}
-      </div>
-    </div>
-  );
+                        <Button
+                            as={Link}
+                            href="/list"
+                            className="mt-8"
+                            size="lg">
+                            リストに移動
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }

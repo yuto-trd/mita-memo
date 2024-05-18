@@ -21,21 +21,16 @@ export default function Header({ auth }: { auth: boolean }) {
           variant="ghost"
           icon={<HamburgerIcon />}
           aria-label="Open menu" />}
-        <a href="/" className="mt-auto mb-auto ml-2 decoration-0">Mita-memo</a>
+        <a href={auth ? "/list" : "/"} className="mt-auto mb-auto ml-2 decoration-0">Mita-memo</a>
 
         <div className="ml-auto mt-auto mb-auto mr-2">
           <IconButton as={Link}
-            href="https://github.com/indigo-san"
+            href="https://github.com/indigo-san/mita-memo"
             aria-label={""}
             icon={<FaGithub />}
             variant="ghost" />
-          <IconButton as={Link}
-            href="https://twitter.com/indigo_san_"
-            aria-label={""}
-            icon={<FaXTwitter />}
-            variant="ghost" />
           {auth && <IconButton as={Link}
-            href="/add-record"
+            href="/animes"
             aria-label={""}
             icon={<AddIcon />}
             variant="ghost" />}

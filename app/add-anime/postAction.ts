@@ -7,7 +7,6 @@ import { randomUUID } from "crypto";
 import { redirect } from "next/navigation";
 
 export async function AddAnime(state: any, formData: FormData): Promise<any> {
-    const id = formData.get("id") as string;
     const name = formData.get("name") as string;
     const episodes = parseInt(formData.get("episodes") as string);
     const description = formData.get("description") as string;
@@ -56,19 +55,21 @@ export async function AddAnime(state: any, formData: FormData): Promise<any> {
         }
     }
 
-    const { error } = await supabase.from("animes")
+    const { data: d1, error } = await supabase.from("animes")
         .insert({
             name,
             url,
             description,
             episodes,
             cover_img: imgFileName
-        });
+        })
+        .select()
+        .maybeSingle();
 
     if (error) {
         console.log(error);
         return { error: "不明なエラーが発生しました" };
     }
 
-    redirect(`/`);
+    redirect(`/animes/${d1?.id}`);
 };

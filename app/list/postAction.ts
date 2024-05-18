@@ -21,7 +21,7 @@ export const updateEpisodeNumber = async (formData: FormData) => {
             console.log(error);
         }
 
-        return redirect(`/`);
+        return redirect(`/list`);
     } else {
         const { error } = await supabase.from("records")
             .update({ episode_number: episode_number })
@@ -31,6 +31,6 @@ export const updateEpisodeNumber = async (formData: FormData) => {
             console.log(error);
         }
 
-        return redirect(`/?result=handled&rid=${record_id}`);
+        return redirect(`/list/?result=handled&rid=${record_id}`);
     }
 };

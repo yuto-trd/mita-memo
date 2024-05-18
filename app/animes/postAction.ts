@@ -31,5 +31,5 @@ export async function AddRecord(state: any, formData: FormData): Promise<any> {
         console.log(error);
     }
 
-    redirect(`/`);
+    redirect(`/list`);
 };

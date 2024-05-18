@@ -1,6 +1,6 @@
 "use client"
 
-import { updateEpisodeNumber } from "@/app/postAction";
+import { updateEpisodeNumber } from "@/app/list/postAction";
 import { Tables } from "@/types/supabase";
 import * as Chakra from "@chakra-ui/react";
 import { redirect, useRouter } from "next/navigation";
