@@ -1,18 +1,37 @@
-import { GeistSans } from "geist/font/sans";
+import { Noto_Sans_JP } from 'next/font/google';
 import "./globals.css";
 import { Providers } from "./providers";
 import { createClient } from "@/utils/supabase/server";
 import Header from "@/components/Header";
+import { Metadata } from 'next';
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Mita-memo",
   description: "見た作品を記録しよう",
+  openGraph: {
+    images: [
+      {
+        url: `${defaultUrl}/ogp_large.webp`
+      }
+    ]
+  },
+  twitter: {
+    card: "summary",
+    images: [{
+      "url": `${defaultUrl}/ogp.webp`
+    }]
+  }
 };
+
+const notoSansJP = Noto_Sans_JP({
+  subsets: ['latin'],
+  variable: '--font-noto-sans-jp'
+})
 
 export default async function RootLayout({
   children,
@@ -26,7 +45,7 @@ export default async function RootLayout({
   } = await supabase.auth.getUser();
 
   return (
-    <html lang="ja" className={GeistSans.className}>
+    <html lang="ja" className={notoSansJP.variable}>
       <body className="bg-background text-foreground">
         <Providers>
           <Header auth={user !== null} />

@@ -15,6 +15,9 @@ module.exports = {
         },
       },
     },
+    fontFamily: {
+      sans: ['var(--font-noto-sans-jp)'],
+    }
   },
   plugins: [],
 };
