@@ -6,6 +6,7 @@ import { Button, FormControl, FormErrorMessage, FormLabel, Heading } from "@chak
 import { UnwatchedAnimesList } from "./unwatched-animes-list";
 import { SubmitButton } from "./submit-button";
 import { Tables } from "@/types/supabase";
+import Link from "next/link";
 
 export function AddRecordForm({ watchedItems }: { watchedItems: Tables<"animes">[] }) {
     const [result, dispatch] = useFormState(AddRecord, {});
@@ -24,7 +25,7 @@ export function AddRecordForm({ watchedItems }: { watchedItems: Tables<"animes">
                     </FormControl>
                     <div className="flex mt-2 justify-between">
                         <SubmitButton pendingText="処理中...">追加</SubmitButton>
-                        <Button variant="link" as="a" href="/request">リクエスト</Button>
+                        <Button variant="link" as={Link} href="/request">リクエスト</Button>
                     </div>
                 </form>
             </div>

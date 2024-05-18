@@ -49,15 +49,15 @@ export default function Header({ auth }: { auth: boolean }) {
           <DrawerHeader>Mita-memo</DrawerHeader>
 
           <DrawerBody className="flex flex-col justify-start">
-            <Button justifyContent="start" variant="ghost" as="a" href="/requests">リクエスト一覧</Button>
-            <Button justifyContent="start" variant="ghost" as="a" href="/request">リクエストする</Button>
+            <Button justifyContent="start" variant="ghost" as={Link} href="/requests">リクエスト一覧</Button>
+            <Button justifyContent="start" variant="ghost" as={Link} href="/request">リクエストする</Button>
           </DrawerBody>
 
           <DrawerFooter alignItems="stretch" flexDirection="column" justifyContent="stretch">
             <form action={signOut} className="flex flex-col">
               <SubmitButton pendingText="ログアウト中" justifyContent="start" variant="ghost" type="submit">ログアウト</SubmitButton>
             </form>
-            <Button justifyContent="start" variant="ghost" as="a" href="/delete-account">アカウントを削除</Button>
+            <Button justifyContent="start" variant="ghost" as={Link} href="/delete-account">アカウントを削除</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

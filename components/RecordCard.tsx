@@ -3,9 +3,10 @@
 import { updateEpisodeNumber } from "@/app/list/postAction";
 import { Tables } from "@/types/supabase";
 import * as Chakra from "@chakra-ui/react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useEffect, useState } from "react";
 import { SubmitChakraButton } from "./submit-button";
+import Link from "next/link";
 
 export function RecordCard({ record, result }: { record: Tables<"records"> & { animes: Tables<"animes"> }, result: string | undefined }) {
     const [sliderValue, setSliderValue] = useState(record.episode_number);
@@ -35,7 +36,7 @@ export function RecordCard({ record, result }: { record: Tables<"records"> & { a
 
             <Chakra.Stack style={{ flex: 1 }}>
                 <Chakra.CardBody>
-                    <Chakra.Heading size='md' as="a" href={`/animes/${record.anime_id}`}>
+                    <Chakra.Heading size='md' as={Link} href={`/animes/${record.anime_id}`}>
                         {record.animes.name}
                     </Chakra.Heading>
 

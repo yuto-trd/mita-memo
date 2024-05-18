@@ -7,7 +7,7 @@ import { Text, Box, Button, HStack, Progress, Slider, SliderFilledTrack, SliderT
 import { useEffect, useMemo, useState } from "react";
 import { FaAlignLeft, FaLink } from "react-icons/fa6";
 import { AddRecord, DeleteAnime, UpdateEpisodeNumber } from "./postAction";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 // ここのコード、メディアクエリで構造を変更しているので...
 export default function Display({ item, isModerator, record, result }: { item: Tables<"animes">, isModerator: boolean, record: Tables<"records"> | null, result: string | undefined }) {
@@ -65,7 +65,7 @@ export default function Display({ item, isModerator, record, result }: { item: T
                                 <input type="hidden" value={item.id} name="anime_id" />
                                 <SubmitChakraButton pendingText="処理中..." type="submit" colorScheme="red">削除</SubmitChakraButton>
                             </form>}
-                            {isModerator && <Button as="a" href={`/animes/${item.id}/edit`}>編集</Button>}
+                            {isModerator && <Button as={Link} href={`/animes/${item.id}/edit`}>編集</Button>}
                         </HStack>
 
                         {record && <Box p={4} alignItems="start">
@@ -155,7 +155,7 @@ export default function Display({ item, isModerator, record, result }: { item: T
                             <input type="hidden" value={item.id} name="anime_id" />
                             <SubmitChakraButton pendingText="処理中..." type="submit" colorScheme="red">削除</SubmitChakraButton>
                         </form>}
-                        {isModerator && <Button as="a" href={`/animes/${item.id}/edit`}>編集</Button>}
+                        {isModerator && <Button as={Link} href={`/animes/${item.id}/edit`}>編集</Button>}
                     </HStack>
 
                     {record && <Box p={4} borderWidth='1px' borderRadius='lg' alignItems="start">

@@ -3,6 +3,7 @@
 import { Tables } from "@/types/supabase"
 import { createClient } from "@/utils/supabase/client"
 import * as Chakra from "@chakra-ui/react"
+import Link from "next/link"
 import { ReactNode, useCallback, useEffect, useState } from "react"
 
 export function AnimesList({ query, result }: { query?: string, result: Tables<"animes">[] }) {
@@ -31,7 +32,7 @@ export function AnimesList({ query, result }: { query?: string, result: Tables<"
                                         </Chakra.Heading> :
                                         <Chakra.Heading size='md'>{item.name}</Chakra.Heading>
                                     } */}
-                                    <Chakra.Heading as="a" href={`/animes/${item.id}`} size='md'>{item.name}</Chakra.Heading>
+                                    <Chakra.Heading as={Link} href={`/animes/${item.id}`} size='md'>{item.name}</Chakra.Heading>
 
                                     <Chakra.Text className="mt-2 max-h-20 overflow-hidden line-clamp-3">
                                         {item.description}

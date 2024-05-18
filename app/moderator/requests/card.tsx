@@ -1,5 +1,6 @@
 import { Tables } from "@/types/supabase";
 import { Text, Card, CardBody, Heading, Stack, Badge, CardFooter, Button } from "@chakra-ui/react";
+import Link from "next/link";
 
 export function RequestCard({ item }: { item: Tables<'requests'> & { response4request: Tables<"response4request">[] } }) {
     return (
@@ -24,7 +25,7 @@ export function RequestCard({ item }: { item: Tables<'requests'> & { response4re
                 </CardBody>
 
                 <CardFooter>
-                    <Button variant='ghost' as="a" href={`/moderator/requests/${item.id}`}>
+                    <Button variant='ghost' as={Link} href={`/moderator/requests/${item.id}`}>
                         編集
                     </Button>
                 </CardFooter>
