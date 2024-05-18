@@ -6,7 +6,7 @@ import { Link } from "@chakra-ui/next-js";
 import { Text, Box, Button, HStack, Progress, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Stack, Tooltip, VStack, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useMemo, useState } from "react";
 import { FaAlignLeft, FaLink } from "react-icons/fa6";
-import { AddRecord, UpdateEpisodeNumber } from "./postAction";
+import { AddRecord, DeleteAnime, UpdateEpisodeNumber } from "./postAction";
 import { useRouter } from "next/navigation";
 
 // ここのコード、メディアクエリで構造を変更しているので...
@@ -60,6 +60,10 @@ export default function Display({ item, isModerator, record, result }: { item: T
                             {!record && <form action={AddRecord}>
                                 <input type="hidden" value={item.id} name="anime_id" />
                                 <SubmitChakraButton pendingText="処理中..." type="submit" colorScheme="blue">リストに追加</SubmitChakraButton>
+                            </form>}
+                            {isModerator && <form action={DeleteAnime}>
+                                <input type="hidden" value={item.id} name="anime_id" />
+                                <SubmitChakraButton pendingText="処理中..." type="submit" colorScheme="red">削除</SubmitChakraButton>
                             </form>}
                             {isModerator && <Button as="a" href={`/animes/${item.id}/edit`}>編集</Button>}
                         </HStack>
@@ -146,6 +150,10 @@ export default function Display({ item, isModerator, record, result }: { item: T
                         {!record && <form action={AddRecord}>
                             <input type="hidden" value={item.id} name="anime_id" />
                             <SubmitChakraButton pendingText="処理中..." type="submit" colorScheme="blue">リストに追加</SubmitChakraButton>
+                        </form>}
+                        {isModerator && <form action={DeleteAnime}>
+                            <input type="hidden" value={item.id} name="anime_id" />
+                            <SubmitChakraButton pendingText="処理中..." type="submit" colorScheme="red">削除</SubmitChakraButton>
                         </form>}
                         {isModerator && <Button as="a" href={`/animes/${item.id}/edit`}>編集</Button>}
                     </HStack>
