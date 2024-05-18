@@ -9,6 +9,10 @@ const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
 
+const publicUrl = process.env.VERCEL_URL
+  ? `https://mita-memo.vercel.app`
+  : "http://localhost:3000";
+
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Mita-memo",
@@ -18,7 +22,7 @@ export const metadata: Metadata = {
     description: "見た作品を記録しよう",
     images: [
       {
-        url: `${defaultUrl}/ogp_large.png`
+        url: `${publicUrl}/ogp_large.png`
       }
     ]
   },
@@ -27,7 +31,7 @@ export const metadata: Metadata = {
     description: "見た作品を記録しよう",
     card: "summary",
     images: [{
-      "url": `${defaultUrl}/ogp.png`
+      "url": `${publicUrl}/ogp.png`
     }]
   }
 };
