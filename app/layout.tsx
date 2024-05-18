@@ -9,7 +9,7 @@ const defaultUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
     : "http://localhost:3000";
 
-export const publicUrl = process.env.VERCEL_URL
+const publicUrl = process.env.VERCEL_URL
     ? `https://mita-memo.vercel.app`
     : "http://localhost:3000";
 

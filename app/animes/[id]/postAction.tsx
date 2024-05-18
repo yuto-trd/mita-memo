@@ -60,7 +60,7 @@ export const UpdateEpisodeNumber = async (formData: FormData) => {
 };
 
 export async function DeleteAnime(formData: FormData) {
-    const id = formData.get("id") as string;
+    const id = formData.get("anime_id") as string;
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (user === null) {
