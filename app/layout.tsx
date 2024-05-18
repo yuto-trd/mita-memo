@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     description: "見た作品を記録しよう",
     images: [
       {
-        url: `${defaultUrl}/ogp_large.webp`
+        url: `${defaultUrl}/ogp_large.png`
       }
     ]
   },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     description: "見た作品を記録しよう",
     card: "summary",
     images: [{
-      "url": `${defaultUrl}/ogp.webp`
+      "url": `${defaultUrl}/ogp.png`
     }]
   }
 };
