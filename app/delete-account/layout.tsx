@@ -1,9 +1,8 @@
+import createMetadata from '@/utils/createMetadata';
 import { PropsWithChildren } from 'react';
 
-export const metadata = {
-  title: "アカウントを削除 - Mita-memo",
-};
+export const metadata = createMetadata('アカウントを削除 - Mita-memo', '/list');
 
-export default async function RootLayout({ children }: PropsWithChildren) {
+export default async function Layout({ children }: PropsWithChildren) {
   return <>{children}</>;
 }

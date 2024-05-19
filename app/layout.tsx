@@ -5,25 +5,22 @@ import { createClient } from "@/utils/supabase/server";
 import Header from "@/components/Header";
 import { Metadata } from 'next';
 
-const defaultUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000";
-
 const publicUrl = process.env.VERCEL_URL
     ? `https://mita-memo.vercel.app`
     : "http://localhost:3000";
 
 export const metadata: Metadata = {
-    metadataBase: new URL(defaultUrl),
+    metadataBase: new URL(publicUrl),
     title: "Mita-memo",
     description: "見た作品を記録しよう",
     openGraph: {
         title: "Mita-memo",
         description: "見た作品を記録しよう",
-        url: `${publicUrl}`,
+        url: `/`,
+        type: "website",
         images: [
             {
-                url: `${publicUrl}/ogp_large.png`
+                url: `/ogp_large.png`
             }
         ]
     },
@@ -31,9 +28,11 @@ export const metadata: Metadata = {
         title: "Mita-memo",
         description: "見た作品を記録しよう",
         card: "summary",
-        images: [{
-            "url": `${publicUrl}/ogp.png`
-        }]
+        site: "@indigo_san_",
+        creator: "@indigo_san_",
+        images: {
+            "url": `/ogp.png`
+        }
     }
 };
 
