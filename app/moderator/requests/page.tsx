@@ -1,8 +1,9 @@
 import { Tables } from "@/types/supabase";
 import { createClient } from "@/utils/supabase/server";
-import { Text } from "@chakra-ui/react";
+import { Button, Text } from "@chakra-ui/react";
 import { redirect } from "next/navigation";
 import { RequestCard } from "./card";
+import Link from "next/link";
 
 export default async function RequestsPage() {
     const supabase = createClient();
@@ -27,7 +28,10 @@ export default async function RequestsPage() {
 
     return (
         <div className="ml-auto mr-auto mt-2 p-3 max-w-4xl">
-            <h2 className="font-bold text-lg">リクエスト一覧</h2>
+            <div className="flex justify-between">
+                <h2 className="font-bold text-lg">リクエスト一覧</h2>
+                <Button as={Link} href="/add-anime" colorScheme="blue">作品を登録</Button>
+            </div>
             <div className="mt-2 gap-2 flex flex-col">
                 {requests?.map((item) => <RequestCard key={item.id} item={item} />)}
                 {!requests?.length && <Text>ここには何もないようです</Text>}

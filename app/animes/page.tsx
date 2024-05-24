@@ -31,6 +31,7 @@ export default async function AnimesPage({ searchParams }: AnimesProps) {
             .from("animes")
             .select("*", { count: 'exact' })
             .like("name", `%${searchParams.q}%`)
+            .order("name", { ascending: true })
             .range(startIndex, startIndex + (PAGE_SIZE - 1))
             .returns<Tables<"animes">[]>();
 
