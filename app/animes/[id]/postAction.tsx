@@ -58,29 +58,3 @@ export const UpdateEpisodeNumber = async (formData: FormData) => {
         return redirect(`/animes/${anime_id}?result=handled`);
     }
 };
-
-export async function DeleteAnime(formData: FormData) {
-    const id = formData.get("anime_id") as string;
-    const supabase = createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user === null) {
-        redirect("/login");
-    }
-
-    const isModerator = (await supabase.rpc("is_in_role", { role: "moderator" }).returns<number>()).data
-
-    if (!isModerator) {
-        return redirect("/login");
-    }
-
-    const { error } = await supabase.from("animes")
-        .delete()
-        .eq("id", `${id}`);
-
-    if (error) {
-        console.log(error);
-        return { error: "不明なエラーが発生しました" };
-    }
-
-    redirect(`/animes`);
-}

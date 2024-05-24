@@ -6,7 +6,7 @@ import { Link } from "@chakra-ui/next-js";
 import { Text, Box, Button, HStack, Progress, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Stack, Tooltip, VStack, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useMemo, useState } from "react";
 import { FaAlignLeft, FaLink } from "react-icons/fa6";
-import { AddRecord, DeleteAnime, UpdateEpisodeNumber } from "./postAction";
+import { AddRecord, UpdateEpisodeNumber } from "./postAction";
 import { useRouter } from "next-nprogress-bar";
 
 // ここのコード、メディアクエリで構造を変更しているので...
@@ -21,6 +21,7 @@ export default function Display({ item, isModerator, record, result }: { item: T
     const [sliderValue, setSliderValue] = useState(record?.episode_number ?? 0);
     const [showTooltip, setShowTooltip] = useState(false);
     const [editting, setEditing] = useState(false);
+    const noImage = !item.cover_img;
     const router = useRouter();
 
     useEffect(() => {
@@ -37,11 +38,11 @@ export default function Display({ item, isModerator, record, result }: { item: T
 
     return (
         <div className="ml-auto mr-auto mt-2 p-3 max-w-4xl">
-            <div className="md:grid-cols-2 md:grid md:gap-8">
+            <div className={`${!noImage && "md:grid-cols-2 md:grid"} md:gap-8`}>
                 <div className="md:col-start-1 md:row-start-1 ml-auto mr-auto md:grid-cols-1" >
-                    <img className="sticky md:top-0 z-10 mr-auto ml-auto"
+                    {!noImage && <img className="sticky md:top-0 z-10 mr-auto ml-auto"
                         style={{ top: "calc(3rem + 0.75rem + 0.5rem)" }}
-                        src={`https://bxwxjmhrwdilohrmccph.supabase.co/storage/v1/object/public/cover_img/${item.cover_img}`} />
+                        src={`https://bxwxjmhrwdilohrmccph.supabase.co/storage/v1/object/public/cover_img/${item.cover_img}`} />}
 
                     {!md && <div className="sticky z-20 bg-background">
                         <h2 className="font-bold text-2xl p-4">{item.name}</h2>
@@ -60,10 +61,6 @@ export default function Display({ item, isModerator, record, result }: { item: T
                             {!record && <form action={AddRecord}>
                                 <input type="hidden" value={item.id} name="anime_id" />
                                 <SubmitChakraButton pendingText="処理中..." type="submit" colorScheme="blue">リストに追加</SubmitChakraButton>
-                            </form>}
-                            {isModerator && <form action={DeleteAnime}>
-                                <input type="hidden" value={item.id} name="anime_id" />
-                                <SubmitChakraButton pendingText="処理中..." type="submit" colorScheme="red">削除</SubmitChakraButton>
                             </form>}
                             {isModerator && <Button as={Link} href={`/animes/${item.id}/edit`}>編集</Button>}
                         </HStack>
@@ -150,10 +147,6 @@ export default function Display({ item, isModerator, record, result }: { item: T
                         {!record && <form action={AddRecord}>
                             <input type="hidden" value={item.id} name="anime_id" />
                             <SubmitChakraButton pendingText="処理中..." type="submit" colorScheme="blue">リストに追加</SubmitChakraButton>
-                        </form>}
-                        {isModerator && <form action={DeleteAnime}>
-                            <input type="hidden" value={item.id} name="anime_id" />
-                            <SubmitChakraButton pendingText="処理中..." type="submit" colorScheme="red">削除</SubmitChakraButton>
                         </form>}
                         {isModerator && <Button as={Link} href={`/animes/${item.id}/edit`}>編集</Button>}
                     </HStack>

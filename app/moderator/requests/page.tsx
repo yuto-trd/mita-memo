@@ -15,6 +15,12 @@ export default async function RequestsPage() {
         return redirect("/login");
     }
 
+    const isModerator = (await supabase.rpc("is_in_role", { role: "moderator" }).returns<number>()).data
+
+    if (!isModerator) {
+        return redirect("/login");
+    }
+
     const { data: requests } = await supabase.from("requests")
         .select(`*, response4request(*)`)
         .returns<(Tables<'requests'> & { response4request: Tables<"response4request">[] })[]>();

@@ -11,6 +11,7 @@ import imageCompression from "browser-image-compression";
 export function EditAnimeForm({ item }: { item: Tables<"animes"> }) {
     const [result, dispatch] = useFormState(EditAnime, {});
     const coverImgInputRef = useRef<HTMLInputElement | null>(null);
+    const formRef = useRef<HTMLFormElement | null>(null);
 
     async function handleImageUpload(event: ChangeEvent<HTMLInputElement>) {
         const imageFile = event.target.files?.[0];
@@ -45,6 +46,7 @@ export function EditAnimeForm({ item }: { item: Tables<"animes"> }) {
         <div className="mt-3 flex flex-col items-center">
             <div className="flex-1 flex flex-col w-full px-4 sm:max-w-md justify-center gap-2">
                 <form
+                    ref={formRef}
                     action={dispatch}
                     className="sm:p-4 sm:rounded-xl sm:border sm:border-slate-300">
                     <Heading size="lg" className="mb-2">作品を編集</Heading>
@@ -82,7 +84,18 @@ export function EditAnimeForm({ item }: { item: Tables<"animes"> }) {
                     </FormControl>
                     <input type="hidden" ref={coverImgInputRef} name="cover_img" />
                     {result?.error && <FormErrorMessage>{result.error}</FormErrorMessage>}
-                    <SubmitButton className="mt-3" pendingText="処理中...">保存</SubmitButton>
+                    <div className="flex justify-between">
+                        <SubmitButton className="mt-3" pendingText="処理中...">保存</SubmitButton>
+
+                        <SubmitButton
+                            className="mt-3"
+                            pendingText="処理中..."
+                            name="action"
+                            colorScheme="red"
+                            value="delete">
+                            削除
+                        </SubmitButton>
+                    </div>
                 </form>
             </div>
         </div>

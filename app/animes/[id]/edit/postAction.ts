@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 
 export async function EditAnime(state: any, formData: FormData): Promise<any> {
     const id = formData.get("id") as string;
+    const action = formData.get("action") as string;
     const name = formData.get("name") as string;
     const episodes = parseInt(formData.get("episodes") as string);
     const description = formData.get("description") as string;
@@ -33,6 +34,19 @@ export async function EditAnime(state: any, formData: FormData): Promise<any> {
 
     if (!isModerator) {
         return redirect("/login");
+    }
+
+    if (action === "delete") {
+        const { error } = await supabase.from("animes")
+            .delete()
+            .eq("id", `${id}`);
+
+        if (error) {
+            console.log(error);
+            return { error: "不明なエラーが発生しました" };
+        }
+
+        redirect(`/animes`);
     }
 
     let errors = undefined;

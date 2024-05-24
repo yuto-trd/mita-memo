@@ -52,11 +52,13 @@ export default async function RootLayout({
         data: { user },
     } = await supabase.auth.getUser();
 
+    const isModerator = user !== null && (await supabase.rpc("is_in_role", { role: "moderator" }).returns<number>()).data
+
     return (
         <html lang="ja" className={notoSansJP.variable}>
             <body className="bg-background text-foreground">
                 <Providers>
-                    <Header auth={user !== null} />
+                    <Header auth={user !== null} moderator={!!isModerator} />
                     {children}
                 </Providers>
             </body>

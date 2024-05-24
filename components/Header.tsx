@@ -8,7 +8,7 @@ import Link from "next/link";
 import { signOut } from "./signOut";
 import { SubmitButton } from "@/app/login/submit-button";
 
-export default function Header({ auth }: { auth: boolean }) {
+export default function Header({ auth, moderator }: { auth: boolean, moderator: boolean }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef(null)
 
@@ -51,6 +51,7 @@ export default function Header({ auth }: { auth: boolean }) {
           <DrawerBody className="flex flex-col justify-start">
             <Button justifyContent="start" variant="ghost" as={Link} href="/requests">リクエスト一覧</Button>
             <Button justifyContent="start" variant="ghost" as={Link} href="/request">リクエストする</Button>
+            <Button justifyContent="start" variant="ghost" as={Link} href="/moderator/requests">モデレーター</Button>
           </DrawerBody>
 
           <DrawerFooter alignItems="stretch" flexDirection="column" justifyContent="stretch">
