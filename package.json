@@ -13,7 +13,7 @@
     "@emotion/styled": "^11.11.5",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
-    "autoprefixer": "10.4.17",
+    "autoprefixer": "10.4.19",
     "browser-image-compression": "^2.0.2",
     "geist": "^1.2.1",
     "next": "latest",
