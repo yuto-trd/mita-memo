@@ -1,5 +1,5 @@
 import createMetadata from '@/utils/createMetadata';
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 export const metadata = createMetadata('サインイン - Mita-memo', '/login');
 

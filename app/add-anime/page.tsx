@@ -1,25 +1,25 @@
-import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
-import { AddAnimeForm } from "./form";
+import { createClient } from '@/utils/supabase/server';
+import { redirect } from 'next/navigation';
+import { AddAnimeForm } from './form';
 
 export default async function RequestPage() {
-    const supabase = createClient();
+  const supabase = createClient();
 
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-    if (!user) {
-        return redirect("/login");
-    }
+  if (!user) {
+    return redirect('/login');
+  }
 
-    const isModerator = (await supabase.rpc("is_in_role", { role: "moderator" }).returns<number>()).data
+  const isModerator = (
+    await supabase.rpc('is_in_role', { role: 'moderator' }).returns<number>()
+  ).data;
 
-    if (!isModerator) {
-        return redirect("/login");
-    }
+  if (!isModerator) {
+    return redirect('/login');
+  }
 
-    return (
-        <AddAnimeForm />
-    )
+  return <AddAnimeForm />;
 }

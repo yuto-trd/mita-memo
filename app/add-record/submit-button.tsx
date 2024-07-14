@@ -1,21 +1,25 @@
-"use client"
+'use client';
 
-import { Button, ButtonProps } from "@chakra-ui/react";
-import { useFormStatus } from "react-dom";
+import { Button, type ButtonProps } from '@chakra-ui/react';
+import { useFormStatus } from 'react-dom';
 
-
-export function SubmitButton({ children, pendingText, ...props }: ButtonProps & {
-    pendingText?: string;
+export function SubmitButton({
+  children,
+  pendingText,
+  ...props
+}: ButtonProps & {
+  pendingText?: string;
 }) {
-    const { pending } = useFormStatus();
+  const { pending } = useFormStatus();
 
-    return (
-        <Button
-            {...props}
-            aria-disabled={pending}
-            colorScheme={props.colorScheme ?? "blue"}
-            type='submit'>
-            {pending ? pendingText : children}
-        </Button>
-    );
+  return (
+    <Button
+      {...props}
+      aria-disabled={pending}
+      colorScheme={props.colorScheme ?? 'blue'}
+      type='submit'
+    >
+      {pending ? pendingText : children}
+    </Button>
+  );
 }
