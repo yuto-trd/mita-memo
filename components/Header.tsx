@@ -49,7 +49,7 @@ export default function Header({
         <div className='ml-auto mt-auto mb-auto mr-2'>
           <IconButton
             as={Link}
-            href='https://github.com/indigo-san/mita-memo'
+            href='https://github.com/yuto-trd/mita-memo'
             aria-label='GitHub'
             icon={<FaGithub />}
             variant='ghost'

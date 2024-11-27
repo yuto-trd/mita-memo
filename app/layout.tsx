@@ -28,8 +28,8 @@ export const metadata: Metadata = {
     title: 'Mita-memo',
     description: '見た作品を記録しよう',
     card: 'summary',
-    site: '@indigo_san_',
-    creator: '@indigo_san_',
+    site: '@yuto_daisensei',
+    creator: '@yuto_daisensei',
     images: {
       url: '/ogp.png',
     },
